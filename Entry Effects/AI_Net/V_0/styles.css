@@ -1,0 +1,526 @@
+/* 基礎重置和字體 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background: radial-gradient(ellipse at center, #0f0f23 0%, #000000 70%);
+    color: #ffffff;
+    overflow: hidden;
+    height: 100vh;
+    position: relative;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+/* 神經網絡背景 */
+.neural-network-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.neural-canvas {
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+}
+
+/* 數據處理指示器 */
+.processing-indicator {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #00bfff;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Orbitron', monospace;
+    z-index: 10;
+    min-width: 150px;
+}
+
+.processing-dot {
+    width: 12px;
+    height: 12px;
+    background: #00bfff;
+    border-radius: 50%;
+    animation: processingPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes processingPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.7;
+    }
+}
+
+.processing-text {
+    font-size: 0.9rem;
+    color: #00bfff;
+    text-align: center;
+}
+
+.processing-progress {
+    width: 100%;
+    height: 4px;
+    background: rgba(0, 191, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #00bfff, #0088cc);
+    width: 0%;
+    animation: progressFill 3s ease-in-out infinite;
+}
+
+@keyframes progressFill {
+    0% { width: 0%; }
+    50% { width: 100%; }
+    100% { width: 0%; }
+}
+
+/* 主要文字樣式 */
+.main-text {
+    text-align: center;
+    z-index: 5;
+    position: relative;
+}
+
+.text-line {
+    display: block;
+    margin: 0.5rem 0;
+    position: relative;
+}
+
+.char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(30px) scale(0.8);
+    transition: all 0.5s ease;
+    position: relative;
+}
+
+.char.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.char.neural-node {
+    position: relative;
+}
+
+.char.neural-node::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(0, 191, 255, 0.8) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.char.neural-node.visible::before {
+    width: 40px;
+    height: 40px;
+}
+
+.char.neural-node.active {
+    animation: neuralActivation 2s ease-in-out infinite;
+}
+
+@keyframes neuralActivation {
+    0%, 100% {
+        text-shadow: 0 0 10px currentColor;
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        text-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+        transform: translateY(-2px) scale(1.05);
+    }
+}
+
+/* 醫學術語樣式 */
+.medical-term {
+    font-family: 'Orbitron', monospace;
+    font-size: 4rem;
+    font-weight: 900;
+    color: #0066cc;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}
+
+.medical-term .char[data-layer="input"] {
+    color: #00bfff;
+}
+
+.medical-term .separator {
+    color: #ffffff;
+    margin: 0 0.2em;
+}
+
+/* 功能描述樣式 */
+.prediction {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #ffffff;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.prediction .char[data-layer="hidden"] {
+    color: #ffa502;
+}
+
+/* AI轉診樣式 */
+.ai-referral {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.ai-highlight {
+    color: #00ff88 !important;
+    text-shadow: 0 0 15px #00ff88, 0 0 30px #00ff88;
+}
+
+.char[data-layer="output"] {
+    color: #00ff88;
+}
+
+/* 平台標識樣式 */
+.platform {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: #cccccc;
+    letter-spacing: 0.1em;
+}
+
+.platform .char[data-layer="output"] {
+    color: #cccccc;
+}
+
+/* 神經網絡信息面板 */
+.network-info-panel {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #00ff88;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: 'Orbitron', monospace;
+    z-index: 10;
+    min-width: 150px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.info-label {
+    font-size: 0.9rem;
+    color: #cccccc;
+}
+
+.info-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #00ff88;
+}
+
+/* 網絡層級指示器 */
+.layer-indicators {
+    position: absolute;
+    left: 20px;
+    bottom: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 10;
+}
+
+.layer-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.8rem;
+}
+
+.layer-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.input-layer .layer-dot {
+    background: #00bfff;
+    box-shadow: 0 0 10px #00bfff;
+}
+
+.hidden-layer .layer-dot {
+    background: #ffa502;
+    box-shadow: 0 0 10px #ffa502;
+}
+
+.output-layer .layer-dot {
+    background: #00ff88;
+    box-shadow: 0 0 10px #00ff88;
+}
+
+.layer-indicator.active .layer-dot {
+    animation: layerPulse 1s ease-in-out infinite;
+}
+
+@keyframes layerPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3);
+    }
+}
+
+.layer-label {
+    color: #cccccc;
+}
+
+/* 控制按鈕 */
+.controls {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 10;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.control-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    white-space: nowrap;
+}
+
+.control-btn.primary {
+    background: linear-gradient(45deg, #00bfff, #0088cc);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 191, 255, 0.3);
+}
+
+.control-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 191, 255, 0.4);
+}
+
+.control-btn.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.control-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.control-btn.tertiary {
+    background: linear-gradient(45deg, #00ff88, #00cc6a);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+}
+
+.control-btn.tertiary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.4);
+}
+
+.btn-icon {
+    font-size: 1.1rem;
+}
+
+/* 說明文字 */
+.instructions {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 0.8rem;
+    color: #888888;
+    z-index: 10;
+}
+
+.instructions p {
+    margin: 2px 0;
+}
+
+/* 連接線動畫 */
+.neural-connection {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.connection-line {
+    stroke: #00bfff;
+    stroke-width: 1;
+    opacity: 0;
+    stroke-dasharray: 5, 5;
+    animation: connectionFlow 2s linear infinite;
+}
+
+.connection-line.active {
+    opacity: 0.6;
+}
+
+@keyframes connectionFlow {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 20;
+    }
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .medical-term {
+        font-size: 2.5rem;
+    }
+    
+    .prediction {
+        font-size: 1.8rem;
+    }
+    
+    .ai-referral {
+        font-size: 2rem;
+    }
+    
+    .platform {
+        font-size: 1.5rem;
+    }
+    
+    .network-info-panel,
+    .processing-indicator {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        position: relative;
+        margin-bottom: 20px;
+    }
+    
+    .layer-indicators {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        flex-direction: row;
+        justify-content: center;
+        margin: 20px 0;
+    }
+    
+    .controls {
+        bottom: 20px;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .control-btn {
+        padding: 10px 18px;
+        font-size: 0.8rem;
+    }
+}
+
+/* 可訪問性支持 */
+@media (prefers-reduced-motion: reduce) {
+    .char,
+    .processing-dot,
+    .progress-bar,
+    .layer-dot,
+    .connection-line {
+        animation: none;
+    }
+    
+    .char.visible {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* 高對比度模式 */
+@media (prefers-contrast: high) {
+    .medical-term .char[data-layer="input"] {
+        color: #ffffff;
+        text-shadow: none;
+    }
+    
+    .ai-highlight {
+        color: #ffffff !important;
+        text-shadow: none;
+    }
+    
+    .info-value {
+        color: #ffffff;
+    }
+    
+    .layer-dot {
+        background: #ffffff !important;
+        box-shadow: none !important;
+    }
+}
+

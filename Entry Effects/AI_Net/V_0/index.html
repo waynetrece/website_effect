@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI轉診系統 - AI神經網絡構建效果</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 神經網絡背景 -->
+        <div class="neural-network-bg">
+            <canvas id="neuralCanvas" class="neural-canvas"></canvas>
+        </div>
+
+        <!-- 數據處理狀態指示器 -->
+        <div class="processing-indicator">
+            <div class="processing-dot"></div>
+            <div class="processing-text">AI Processing...</div>
+            <div class="processing-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+
+        <!-- 主要文字內容 -->
+        <div class="main-text" role="banner" aria-label="AI轉診系統標題">
+            <!-- 醫學術語部分 -->
+            <div class="text-line medical-term" aria-label="醫學專業術語">
+                <span class="char neural-node" data-char="A" data-layer="input">A</span>
+                <span class="char neural-node" data-char="S" data-layer="input">S</span>
+                <span class="char neural-node" data-char="C" data-layer="input">C</span>
+                <span class="char neural-node" data-char="V" data-layer="input">V</span>
+                <span class="char neural-node" data-char="D" data-layer="input">D</span>
+                <span class="char separator neural-node" data-char="&" data-layer="input">&</span>
+                <span class="char neural-node" data-char="H" data-layer="input">H</span>
+                <span class="char neural-node" data-char="F" data-layer="input">F</span>
+            </div>
+
+            <!-- 功能描述部分 -->
+            <div class="text-line prediction" aria-label="風險預測功能">
+                <span class="char neural-node" data-char="R" data-layer="hidden">R</span>
+                <span class="char neural-node" data-char="i" data-layer="hidden">i</span>
+                <span class="char neural-node" data-char="s" data-layer="hidden">s</span>
+                <span class="char neural-node" data-char="k" data-layer="hidden">k</span>
+                <span class="char space neural-node" data-char=" " data-layer="hidden"> </span>
+                <span class="char neural-node" data-char="p" data-layer="hidden">p</span>
+                <span class="char neural-node" data-char="r" data-layer="hidden">r</span>
+                <span class="char neural-node" data-char="e" data-layer="hidden">e</span>
+                <span class="char neural-node" data-char="d" data-layer="hidden">d</span>
+                <span class="char neural-node" data-char="i" data-layer="hidden">i</span>
+                <span class="char neural-node" data-char="c" data-layer="hidden">c</span>
+                <span class="char neural-node" data-char="t" data-layer="hidden">t</span>
+                <span class="char neural-node" data-char="i" data-layer="hidden">i</span>
+                <span class="char neural-node" data-char="o" data-layer="hidden">o</span>
+                <span class="char neural-node" data-char="n" data-layer="hidden">n</span>
+            </div>
+
+            <!-- AI轉診部分 -->
+            <div class="text-line ai-referral" aria-label="AI智能轉診">
+                <span class="char neural-node" data-char="a" data-layer="hidden">a</span>
+                <span class="char neural-node" data-char="n" data-layer="hidden">n</span>
+                <span class="char neural-node" data-char="d" data-layer="hidden">d</span>
+                <span class="char space neural-node" data-char=" " data-layer="hidden"> </span>
+                <span class="char ai-highlight neural-node" data-char="A" data-layer="output">A</span>
+                <span class="char ai-highlight neural-node" data-char="I" data-layer="output">I</span>
+                <span class="char neural-node" data-char="-" data-layer="output">-</span>
+                <span class="char ai-highlight neural-node" data-char="R" data-layer="output">R</span>
+                <span class="char ai-highlight neural-node" data-char="e" data-layer="output">e</span>
+                <span class="char ai-highlight neural-node" data-char="f" data-layer="output">f</span>
+                <span class="char ai-highlight neural-node" data-char="e" data-layer="output">e</span>
+                <span class="char ai-highlight neural-node" data-char="r" data-layer="output">r</span>
+                <span class="char ai-highlight neural-node" data-char="r" data-layer="output">r</span>
+                <span class="char ai-highlight neural-node" data-char="a" data-layer="output">a</span>
+                <span class="char ai-highlight neural-node" data-char="l" data-layer="output">l</span>
+            </div>
+
+            <!-- 平台標識部分 -->
+            <div class="text-line platform" aria-label="平台系統">
+                <span class="char neural-node" data-char="p" data-layer="output">p</span>
+                <span class="char neural-node" data-char="l" data-layer="output">l</span>
+                <span class="char neural-node" data-char="a" data-layer="output">a</span>
+                <span class="char neural-node" data-char="t" data-layer="output">t</span>
+                <span class="char neural-node" data-char="f" data-layer="output">f</span>
+                <span class="char neural-node" data-char="o" data-layer="output">o</span>
+                <span class="char neural-node" data-char="r" data-layer="output">r</span>
+                <span class="char neural-node" data-char="m" data-layer="output">m</span>
+            </div>
+        </div>
+
+        <!-- 神經網絡信息面板 -->
+        <div class="network-info-panel">
+            <div class="info-item">
+                <span class="info-label">節點</span>
+                <span class="info-value" id="nodeCount">0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">連接</span>
+                <span class="info-value" id="connectionCount">0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">層級</span>
+                <span class="info-value" id="layerCount">3</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">準確率</span>
+                <span class="info-value" id="accuracy">94.7%</span>
+            </div>
+        </div>
+
+        <!-- 網絡層級指示器 -->
+        <div class="layer-indicators">
+            <div class="layer-indicator input-layer">
+                <div class="layer-dot"></div>
+                <span class="layer-label">輸入層</span>
+            </div>
+            <div class="layer-indicator hidden-layer">
+                <div class="layer-dot"></div>
+                <span class="layer-label">隱藏層</span>
+            </div>
+            <div class="layer-indicator output-layer">
+                <div class="layer-dot"></div>
+                <span class="layer-label">輸出層</span>
+            </div>
+        </div>
+
+        <!-- 控制按鈕 -->
+        <div class="controls">
+            <button id="playAnimation" class="control-btn primary">
+                <span class="btn-icon">🧠</span>
+                <span class="btn-text">啟動神經網絡</span>
+            </button>
+            <button id="resetAnimation" class="control-btn secondary">
+                <span class="btn-icon">⟲</span>
+                <span class="btn-text">重置網絡</span>
+            </button>
+            <button id="toggleNetwork" class="control-btn tertiary">
+                <span class="btn-icon">🔗</span>
+                <span class="btn-text">切換連接</span>
+            </button>
+        </div>
+
+        <!-- 說明文字 -->
+        <div class="instructions">
+            <p>🧠 觀察AI神經網絡的構建和學習過程</p>
+            <p>⌨️ 快捷鍵：空格鍵啟動，R鍵重置，T鍵切換連接</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
