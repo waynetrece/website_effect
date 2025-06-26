@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI轉診系統 - 心率監測式律動效果</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 心電圖背景 -->
+        <div class="ecg-background">
+            <svg class="ecg-svg" viewBox="0 0 1200 200">
+                <path class="ecg-line" d="M0,100 L200,100 L220,60 L240,140 L260,20 L280,180 L300,100 L1200,100" 
+                      stroke="#00ff88" stroke-width="2" fill="none"/>
+                <path class="ecg-line-2" d="M0,100 L150,100 L170,70 L190,130 L210,30 L230,170 L250,100 L1200,100" 
+                      stroke="#0066cc" stroke-width="1.5" fill="none" opacity="0.6"/>
+            </svg>
+        </div>
+
+        <!-- 心跳脈衝指示器 -->
+        <div class="heartbeat-indicator">
+            <div class="pulse-dot"></div>
+            <div class="pulse-ring"></div>
+        </div>
+
+        <!-- 主要文字內容 -->
+        <div class="main-text" role="banner" aria-label="AI轉診系統標題">
+            <!-- 醫學術語部分 -->
+            <div class="text-line medical-term" aria-label="醫學專業術語">
+                <span class="char" data-char="A">A</span>
+                <span class="char" data-char="S">S</span>
+                <span class="char" data-char="C">C</span>
+                <span class="char" data-char="V">V</span>
+                <span class="char" data-char="D">D</span>
+                <span class="char separator" data-char="&">&</span>
+                <span class="char" data-char="H">H</span>
+                <span class="char" data-char="F">F</span>
+            </div>
+
+            <!-- 功能描述部分 -->
+            <div class="text-line prediction" aria-label="風險預測功能">
+                <span class="char" data-char="R">R</span>
+                <span class="char" data-char="i">i</span>
+                <span class="char" data-char="s">s</span>
+                <span class="char" data-char="k">k</span>
+                <span class="char space" data-char=" "> </span>
+                <span class="char" data-char="p">p</span>
+                <span class="char" data-char="r">r</span>
+                <span class="char" data-char="e">e</span>
+                <span class="char" data-char="d">d</span>
+                <span class="char" data-char="i">i</span>
+                <span class="char" data-char="c">c</span>
+                <span class="char" data-char="t">t</span>
+                <span class="char" data-char="i">i</span>
+                <span class="char" data-char="o">o</span>
+                <span class="char" data-char="n">n</span>
+            </div>
+
+            <!-- AI轉診部分 -->
+            <div class="text-line ai-referral" aria-label="AI智能轉診">
+                <span class="char" data-char="a">a</span>
+                <span class="char" data-char="n">n</span>
+                <span class="char" data-char="d">d</span>
+                <span class="char space" data-char=" "> </span>
+                <span class="char ai-highlight" data-char="A">A</span>
+                <span class="char ai-highlight" data-char="I">I</span>
+                <span class="char" data-char="-">-</span>
+                <span class="char ai-highlight" data-char="R">R</span>
+                <span class="char ai-highlight" data-char="e">e</span>
+                <span class="char ai-highlight" data-char="f">f</span>
+                <span class="char ai-highlight" data-char="e">e</span>
+                <span class="char ai-highlight" data-char="r">r</span>
+                <span class="char ai-highlight" data-char="r">r</span>
+                <span class="char ai-highlight" data-char="a">a</span>
+                <span class="char ai-highlight" data-char="l">l</span>
+            </div>
+
+            <!-- 平台標識部分 -->
+            <div class="text-line platform" aria-label="平台系統">
+                <span class="char" data-char="p">p</span>
+                <span class="char" data-char="l">l</span>
+                <span class="char" data-char="a">a</span>
+                <span class="char" data-char="t">t</span>
+                <span class="char" data-char="f">f</span>
+                <span class="char" data-char="o">o</span>
+                <span class="char" data-char="r">r</span>
+                <span class="char" data-char="m">m</span>
+            </div>
+        </div>
+
+        <!-- 生命體徵監測面板 -->
+        <div class="vital-signs-panel">
+            <div class="vital-item">
+                <span class="vital-label">心率</span>
+                <span class="vital-value" id="heartRate">72</span>
+                <span class="vital-unit">BPM</span>
+            </div>
+            <div class="vital-item">
+                <span class="vital-label">血壓</span>
+                <span class="vital-value">120/80</span>
+                <span class="vital-unit">mmHg</span>
+            </div>
+            <div class="vital-item">
+                <span class="vital-label">風險</span>
+                <span class="vital-value risk-low">低</span>
+                <span class="vital-unit"></span>
+            </div>
+        </div>
+
+        <!-- 控制按鈕 -->
+        <div class="controls">
+            <button id="playAnimation" class="control-btn primary">
+                <span class="btn-icon">▶</span>
+                <span class="btn-text">播放動畫</span>
+            </button>
+            <button id="resetAnimation" class="control-btn secondary">
+                <span class="btn-icon">⟲</span>
+                <span class="btn-text">重置</span>
+            </button>
+        </div>
+
+        <!-- 說明文字 -->
+        <div class="instructions">
+            <p>💓 文字將隨著心跳節奏逐一顯現</p>
+            <p>⌨️ 快捷鍵：空格鍵播放，R鍵重置</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,541 @@
+/* 基礎重置和字體 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Orbitron', monospace;
+    background: linear-gradient(135deg, #f6f8ff 0%, #e3e6fa 60%, #b6c7f7 100%);
+    color: #22223b;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* 主容器 */
+.container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(120deg, #f6f8ff 0%, #e3e6fa 80%, #b6c7f7 100%);
+}
+
+/* 背景網格 */
+.background-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(182, 199, 247, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(182, 199, 247, 0.15) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(50px, 50px);
+    }
+}
+
+/* 背景粒子 */
+.background-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.background-particles::before,
+.background-particles::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #b6c7f7;
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+    opacity: 0.7;
+}
+
+.background-particles::before {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.background-particles::after {
+    top: 60%;
+    right: 15%;
+    animation-delay: 3s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: translateY(-20px) scale(1.2);
+        opacity: 1;
+    }
+}
+
+/* 掃描線 */
+.scan-line {
+    position: absolute;
+    left: -100px;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            #b6c7f7 20%,
+            #e3e6fa 50%,
+            #b6c7f7 80%,
+            transparent 100%);
+    box-shadow: 0 0 24px #b6c7f7, 0 0 48px #e3e6fa;
+    opacity: 0;
+    z-index: 10;
+}
+
+.scan-line.active {
+    animation: scanMove 4s ease-in-out;
+}
+
+@keyframes scanMove {
+    0% {
+        left: -100px;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        left: calc(100% + 100px);
+        opacity: 0;
+    }
+}
+
+/* 主要文字容器 */
+.main-text {
+    position: relative;
+    text-align: center;
+    z-index: 5;
+}
+
+.text-line {
+    display: block;
+    margin: 20px 0;
+    position: relative;
+}
+
+/* 字符樣式 */
+.char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(50px) scale(0.5);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.char.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.space {
+    display: inline-block;
+    width: 0.5em;
+}
+
+/* 醫學術語樣式 */
+.medical-term .char {
+    font-size: 4rem;
+    font-weight: 900;
+    color: #1976d2;
+    text-shadow: 0 0 24px #b6d6f7, 0 0 48px #b6d6f7;
+    letter-spacing: 0.1em;
+}
+
+.medical-term .char.visible {
+    animation: medicalPulse 2s ease-in-out infinite;
+}
+
+@keyframes medicalPulse {
+
+    0%,
+    100% {
+        text-shadow: 0 0 24px #b6d6f7, 0 0 48px #b6d6f7;
+    }
+
+    50% {
+        text-shadow: 0 0 36px #1976d2, 0 0 60px #b6d6f7, 0 0 80px #1976d2;
+    }
+}
+
+/* 預測功能樣式 */
+.prediction .char {
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #16787a;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 0.05em;
+}
+
+.prediction .char.visible {
+    animation: dataFlow 1s ease-out;
+}
+
+@keyframes dataFlow {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px) scale(0.8);
+        color: #1db28b;
+    }
+
+    50% {
+        color: #16787a;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        color: #16787a;
+    }
+}
+
+/* AI轉診樣式 */
+.ai-referral .char {
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #16787a;
+    letter-spacing: 0.08em;
+}
+
+.ai-referral .char.ai-highlight {
+    color: #1db28b;
+    text-shadow: 0 0 12px #a8e7d2, 0 0 24px #1db28b;
+}
+
+.ai-referral .char.visible {
+    animation: aiAssemble 0.8s ease-out;
+}
+
+@keyframes aiAssemble {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) rotateX(90deg);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: translateY(-10px) rotateX(45deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+    }
+}
+
+/* 平台樣式 */
+.platform .char {
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: #16787a;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 0.06em;
+}
+
+.platform .char.visible {
+    animation: platformStabilize 1s ease-out;
+}
+
+@keyframes platformStabilize {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(1.2);
+        filter: blur(5px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
+    }
+}
+
+/* 心電圖容器 */
+.ecg-container {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 100px;
+    opacity: 0;
+}
+
+.ecg-container.active {
+    animation: ecgFadeIn 2s ease-in-out forwards;
+}
+
+@keyframes ecgFadeIn {
+    to {
+        opacity: 0.6;
+    }
+}
+
+.ecg-wave {
+    width: 100%;
+    height: 100%;
+}
+
+.ecg-path {
+    fill: none;
+    stroke: #1db28b;
+    stroke-width: 2;
+    stroke-dasharray: 800;
+    stroke-dashoffset: 800;
+}
+
+.ecg-path.animate {
+    animation: drawECG 3s ease-in-out forwards;
+}
+
+@keyframes drawECG {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* 數據粒子 */
+.data-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: linear-gradient(135deg, #e3e6fa 0%, #b6c7f7 100%);
+    border-radius: 50%;
+    opacity: 0;
+    box-shadow: 0 0 8px #b6c7f7, 0 0 16px #e3e6fa;
+}
+
+.particle:nth-child(1) {
+    top: 20%;
+    left: 15%;
+    animation: particleFloat1 8s ease-in-out infinite;
+    animation-delay: 1s;
+}
+
+.particle:nth-child(2) {
+    top: 40%;
+    right: 20%;
+    animation: particleFloat2 6s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.particle:nth-child(3) {
+    bottom: 30%;
+    left: 25%;
+    animation: particleFloat3 7s ease-in-out infinite;
+    animation-delay: 3s;
+}
+
+.particle:nth-child(4) {
+    top: 60%;
+    left: 60%;
+    animation: particleFloat4 5s ease-in-out infinite;
+    animation-delay: 4s;
+}
+
+.particle:nth-child(5) {
+    bottom: 20%;
+    right: 30%;
+    animation: particleFloat5 9s ease-in-out infinite;
+    animation-delay: 1.5s;
+}
+
+@keyframes particleFloat1 {
+
+    0%,
+    100% {
+        opacity: 0;
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(20px, -30px) scale(1.5);
+    }
+}
+
+@keyframes particleFloat2 {
+
+    0%,
+    100% {
+        opacity: 0;
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(-25px, 20px) scale(1.2);
+    }
+}
+
+@keyframes particleFloat3 {
+
+    0%,
+    100% {
+        opacity: 0;
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(30px, -15px) scale(1.3);
+    }
+}
+
+@keyframes particleFloat4 {
+
+    0%,
+    100% {
+        opacity: 0;
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(-20px, -25px) scale(1.4);
+    }
+}
+
+@keyframes particleFloat5 {
+
+    0%,
+    100% {
+        opacity: 0;
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(15px, 35px) scale(1.1);
+    }
+}
+
+/* 控制按鈕 */
+.controls {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #0066cc, #00bfff);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 102, 204, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #cccccc;
+    border: 2px solid #666666;
+}
+
+.btn-secondary:hover {
+    background: #666666;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .medical-term .char {
+        font-size: 2.5rem;
+    }
+
+    .prediction .char {
+        font-size: 1.8rem;
+    }
+
+    .ai-referral .char {
+        font-size: 2rem;
+    }
+
+    .platform .char {
+        font-size: 1.5rem;
+    }
+
+    .text-line {
+        margin: 15px 0;
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* 載入狀態 */
+.loading {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loaded {
+    opacity: 1;
+    pointer-events: auto;
+}

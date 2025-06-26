@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI轉診系統 - 智能掃描式文字特效</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- 背景元素 -->
+        <div class="background-grid"></div>
+        <div class="background-particles"></div>
+
+        <!-- 掃描線 -->
+        <div class="scan-line"></div>
+
+        <!-- 主要文字內容 -->
+        <div class="main-text">
+            <div class="text-line medical-term">
+                <span class="char" data-char="A">A</span>
+                <span class="char" data-char="S">S</span>
+                <span class="char" data-char="C">C</span>
+                <span class="char" data-char="V">V</span>
+                <span class="char" data-char="D">D</span>
+                <span class="char" data-char="&">&</span>
+                <span class="char" data-char="H">H</span>
+                <span class="char" data-char="F">F</span>
+            </div>
+
+            <div class="text-line prediction">
+                <span class="char" data-char="R">R</span>
+                <span class="char" data-char="i">i</span>
+                <span class="char" data-char="s">s</span>
+                <span class="char" data-char="k">k</span>
+                <span class="space"></span>
+                <span class="char" data-char="p">p</span>
+                <span class="char" data-char="r">r</span>
+                <span class="char" data-char="e">e</span>
+                <span class="char" data-char="d">d</span>
+                <span class="char" data-char="i">i</span>
+                <span class="char" data-char="c">c</span>
+                <span class="char" data-char="t">t</span>
+                <span class="char" data-char="i">i</span>
+                <span class="char" data-char="o">o</span>
+                <span class="char" data-char="n">n</span>
+            </div>
+
+            <div class="text-line ai-referral">
+                <span class="char" data-char="a">a</span>
+                <span class="char" data-char="n">n</span>
+                <span class="char" data-char="d">d</span>
+                <span class="space"></span>
+                <span class="char ai-highlight" data-char="A">A</span>
+                <span class="char ai-highlight" data-char="I">I</span>
+                <span class="char" data-char="-">-</span>
+                <span class="char ai-highlight" data-char="R">R</span>
+                <span class="char ai-highlight" data-char="e">e</span>
+                <span class="char ai-highlight" data-char="f">f</span>
+                <span class="char ai-highlight" data-char="e">e</span>
+                <span class="char ai-highlight" data-char="r">r</span>
+                <span class="char ai-highlight" data-char="r">r</span>
+                <span class="char ai-highlight" data-char="a">a</span>
+                <span class="char ai-highlight" data-char="l">l</span>
+            </div>
+
+            <div class="text-line platform">
+                <span class="char" data-char="p">p</span>
+                <span class="char" data-char="l">l</span>
+                <span class="char" data-char="a">a</span>
+                <span class="char" data-char="t">t</span>
+                <span class="char" data-char="f">f</span>
+                <span class="char" data-char="o">o</span>
+                <span class="char" data-char="r">r</span>
+                <span class="char" data-char="m">m</span>
+            </div>
+        </div>
+
+        <!-- 心電圖波形 -->
+        <div class="ecg-container">
+            <svg class="ecg-wave" viewBox="0 0 800 100">
+                <path class="ecg-path" d="M0,50 L100,50 L110,30 L120,70 L130,20 L140,80 L150,50 L800,50" />
+            </svg>
+        </div>
+
+        <!-- 數據粒子 -->
+        <div class="data-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+
+        <!-- 控制按鈕 -->
+        <div class="controls">
+            <button id="playAnimation" class="btn-primary">播放動畫</button>
+            <button id="resetAnimation" class="btn-secondary">重置</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

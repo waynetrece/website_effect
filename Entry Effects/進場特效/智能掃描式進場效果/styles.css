@@ -1,0 +1,238 @@
+/* 基礎重置和字體 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Orbitron', monospace;
+    background: #0a0a0a;
+    color: #ffffff;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* 主容器 */
+.container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0a 70%);
+}
+
+/* 背景網格 */
+.background-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(0, 102, 204, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 102, 204, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(50px, 50px);
+    }
+}
+
+/* 背景粒子 */
+.background-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.background-particles::before,
+.background-particles::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #00ff88;
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+.background-particles::before {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.background-particles::after {
+    top: 60%;
+    right: 15%;
+    animation-delay: 3s;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: translateY(-20px) scale(1.2);
+        opacity: 1;
+    }
+}
+
+/* 掃描線 */
+.scan-line {
+    position: absolute;
+    left: -100px;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            #0066cc 20%,
+            #00bfff 50%,
+            #0066cc 80%,
+            transparent 100%);
+    box-shadow: 0 0 20px #00bfff, 0 0 40px #0066cc;
+    opacity: 0;
+    z-index: 10;
+}
+
+.scan-line.active {
+    animation: scanMove 4s ease-in-out;
+}
+
+@keyframes scanMove {
+    0% {
+        left: -100px;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        left: calc(100% + 100px);
+        opacity: 0;
+    }
+}
+
+/* 主要文字容器 */
+.main-text {
+    position: relative;
+    text-align: center;
+    z-index: 5;
+}
+
+.text-line {
+    display: block;
+    margin: 20px 0;
+    position: relative;
+}
+
+/* 字符樣式 */
+.char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(50px) scale(0.5);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.char.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.space {
+    display: inline-block;
+    width: 0.5em;
+}
+
+/* 醫學術語樣式 */
+.medical-term .char {
+    font-size: 4rem;
+    font-weight: 900;
+    color: #0066cc;
+    text-shadow: 0 0 20px #0066cc, 0 0 40px #004499;
+    letter-spacing: 0.1em;
+}
+
+.medical-term .char.visible {
+    animation: medicalPulse 2s ease-in-out infinite;
+}
+
+@keyframes medicalPulse {
+
+    0%,
+    100% {
+        text-shadow: 0 0 20px #0066cc, 0 0 40px #004499;
+    }
+
+    50% {
+        text-shadow: 0 0 30px #0066cc, 0 0 60px #004499, 0 0 80px #0066cc;
+    }
+}
+
+/* 預測功能樣式 */
+.prediction .char {
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #ffffff;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 0.05em;
+}
+
+.prediction .char.visible {
+    animation: dataFlow 1s ease-out;
+}
+
+@keyframes dataFlow {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px) scale(0.8);
+        color: #00ff88;
+    }
+
+    50% {
+        color: #00bfff;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        color: #ffffff;
+    }
+}
+
+/* AI轉診樣式 */
+.ai-referral .char {
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.08em;
+}
+
+.ai-referral .char.ai-highlight {
+    // ... existing code ...
+}

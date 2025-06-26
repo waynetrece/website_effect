@@ -1,0 +1,415 @@
+/* 基礎重置和字體 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    color: #ffffff;
+    overflow: hidden;
+    height: 100vh;
+    position: relative;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+/* 心電圖背景 */
+.ecg-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+.ecg-svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.ecg-line {
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    animation: drawECG 4s ease-in-out infinite;
+}
+
+.ecg-line-2 {
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    animation: drawECG 4s ease-in-out infinite 0.5s;
+}
+
+@keyframes drawECG {
+    0% {
+        stroke-dashoffset: 1200;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        stroke-dashoffset: 0;
+        opacity: 0.6;
+    }
+}
+
+/* 心跳脈衝指示器 */
+.heartbeat-indicator {
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    width: 60px;
+    height: 60px;
+    z-index: 10;
+}
+
+.pulse-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background: #ff4757;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+.pulse-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    border: 2px solid #ff4757;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulseRing 1.2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        background: #ff4757;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.3);
+        background: #ff6b7a;
+    }
+}
+
+@keyframes pulseRing {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+    }
+}
+
+/* 主要文字樣式 */
+.main-text {
+    text-align: center;
+    z-index: 5;
+    position: relative;
+}
+
+.text-line {
+    display: block;
+    margin: 0.5rem 0;
+    position: relative;
+}
+
+.char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(30px) scale(0.8);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.char.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.char.heartbeat-sync {
+    animation: heartbeatText 1.2s ease-in-out infinite;
+}
+
+@keyframes heartbeatText {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        text-shadow: 0 0 10px currentColor;
+    }
+    50% {
+        transform: translateY(-2px) scale(1.05);
+        text-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+    }
+}
+
+/* 醫學術語樣式 */
+.medical-term {
+    font-family: 'Orbitron', monospace;
+    font-size: 4rem;
+    font-weight: 900;
+    color: #0066cc;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}
+
+.medical-term .char {
+    text-shadow: 0 0 20px #0066cc, 0 0 40px #0066cc;
+}
+
+.medical-term .separator {
+    color: #ffffff;
+    margin: 0 0.2em;
+}
+
+/* 功能描述樣式 */
+.prediction {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #ffffff;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+/* AI轉診樣式 */
+.ai-referral {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.ai-highlight {
+    color: #00ff88 !important;
+    text-shadow: 0 0 15px #00ff88, 0 0 30px #00ff88;
+    animation: aiGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes aiGlow {
+    0% {
+        text-shadow: 0 0 15px #00ff88, 0 0 30px #00ff88;
+    }
+    100% {
+        text-shadow: 0 0 25px #00ff88, 0 0 50px #00ff88, 0 0 75px #00ff88;
+    }
+}
+
+/* 平台標識樣式 */
+.platform {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: #cccccc;
+    letter-spacing: 0.1em;
+}
+
+/* 生命體徵監測面板 */
+.vital-signs-panel {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid #0066cc;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: 'Orbitron', monospace;
+    z-index: 10;
+}
+
+.vital-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.vital-label {
+    font-size: 0.9rem;
+    color: #cccccc;
+    min-width: 40px;
+}
+
+.vital-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #00ff88;
+    min-width: 60px;
+}
+
+.vital-value.risk-low {
+    color: #00ff88;
+}
+
+.vital-unit {
+    font-size: 0.8rem;
+    color: #888888;
+}
+
+/* 控制按鈕 */
+.controls {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    z-index: 10;
+}
+
+.control-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.control-btn.primary {
+    background: linear-gradient(45deg, #0066cc, #0088ff);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+}
+
+.control-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
+}
+
+.control-btn.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.control-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+/* 說明文字 */
+.instructions {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 0.9rem;
+    color: #888888;
+    z-index: 10;
+}
+
+.instructions p {
+    margin: 2px 0;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .medical-term {
+        font-size: 2.5rem;
+    }
+    
+    .prediction {
+        font-size: 1.8rem;
+    }
+    
+    .ai-referral {
+        font-size: 2rem;
+    }
+    
+    .platform {
+        font-size: 1.5rem;
+    }
+    
+    .vital-signs-panel {
+        top: 10px;
+        left: 10px;
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+    
+    .controls {
+        bottom: 30px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .control-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* 可訪問性支持 */
+@media (prefers-reduced-motion: reduce) {
+    .char,
+    .pulse-dot,
+    .pulse-ring,
+    .ecg-line,
+    .ecg-line-2 {
+        animation: none;
+    }
+    
+    .char.visible {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* 高對比度模式 */
+@media (prefers-contrast: high) {
+    .medical-term {
+        color: #ffffff;
+        text-shadow: none;
+    }
+    
+    .ai-highlight {
+        color: #ffffff !important;
+        text-shadow: none;
+    }
+    
+    .vital-value {
+        color: #ffffff;
+    }
+}
+
